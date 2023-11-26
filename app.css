@@ -1,0 +1,609 @@
+/* --------------- UNSTYLE DOM ELEMENTS --------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* ----------------- PLAIN COLORS -------------------- */
+  --white: #ffffff;
+  --background: #f1f1f1;
+
+  /* ----------------- STATE COLORS -------------------- */
+  --hover: #f7f7f7;
+  --pressed: #f0f0f0;
+  --focused: #005bd3;
+
+  /* ----------------- FONT COLORS -------------------- */
+  --fontDark: #474747;
+  --fontMid: #616161;
+  --fontLight: #e3e3e3;
+
+  /* ----------------- STROKE COLORS -------------------- */
+  --s50: #ebebeb;
+  --s100: #00000007;
+  --s200: #ffffff20;
+
+  /* ----------------- NEUTRAL COLORS -------------------- */
+  --50: #656266;
+  --100: #616161;
+  --200: #322f33;
+  --300: #1c181d;
+
+  /* ----------------- EXTRA COLORS -------------------- */
+  --avatarBg: #36fba1;
+  --grey: #f3f3f3;
+}
+
+/* ----------- ACCESSIBILITY HIGHLIGHT --------------- */
+:focus {
+  outline: 2px solid var(--focused, blue);
+}
+
+/* ----------------- GLOBAL STYLES ------------------ */
+body {
+  font-family: "Inter", sans-serif;
+  background: var(--background, #f1f1f1);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: auto;
+  width: 100%;
+  height: 100vh;
+  min-height: fit-content;
+  padding-bottom: 56px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+body::-webkit-scrollbar {
+  display: none;
+}
+
+button {
+  border: none;
+  background: none;
+}
+
+/* -------------- NAV CONTAINER STYLE ---------------- */
+#nav-div {
+  position: fixed;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--300, black);
+  width: 100%;
+  height: 56px;
+  z-index: 999;
+}
+
+/* ---------------- NAVIGATION STYLE ------------------ */
+nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1440px;
+  width: 100%;
+  height: 100%;
+  padding: 12px 16px 12px 16px;
+  gap: 8px;
+}
+nav #mobile-logo {
+  display: none;
+}
+nav #desktop-logo {
+  display: block;
+}
+#shopify-logo {
+  cursor: pointer;
+}
+#profile-modal-container,
+#notifications-modal-container {
+  width: 100%;
+  max-width: 1440px;
+  height: 100%;
+  position: relative;
+}
+#profile {
+  position: absolute;
+  top: 8px;
+  right: 15px;
+  width: 320px;
+  max-width: 100%;
+  min-width: 200px;
+  min-height: fit-content;
+  border-radius: 14px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 8px 0px;
+  gap: 4px;
+  border: 1px solid var(--s50, grey);
+  background: var(--white, white);
+}
+#profile-modal-container #profile hr {
+  width: 100%;
+  border: 0.5px solid var(--s50, grey);
+  margin: 8px 0px;
+}
+#profile-modal-container #profile li {
+  text-decoration: none;
+  list-style: none;
+}
+#profile-modal-container #profile li a {
+  width: 95%;
+  height: 36px;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--fontDark, black);
+  padding: 4px 12px 4px 8px;
+  display: flex;
+  margin: 0 2.5%;
+  align-items: center;
+  text-decoration: none;
+}
+#profile-modal-container #profile li a:hover {
+  background: var(--s50, grey);
+  border-radius: 8px;
+  cursor: pointer;
+}
+#profile-modal-container #profile li:first-child a:first-child {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+#profile-modal-container #profile li a:first-child div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+#profile-modal-container #profile li a:first-child div div span {
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--avatarBg, green);
+  color: var(--fontDark, black);
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  font-size: 10.5px;
+}
+#profile-modal-container #profile li:nth-child(2) a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+#profile-modal-container #profile li a #fullname {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--fontDark, black);
+}
+#profile-modal-container #profile li a #email {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--fontMid, grey);
+}
+#notifications {
+  position: absolute;
+  right: 15px;
+  background: var(--white, white);
+  width: 383px;
+  height: 118px;
+  top: 8px;
+  padding: 16px;
+  font-weight: 600;
+  border-radius: 14px;
+  border: 1px solid var(--s50, grey);
+  gap: 16px;
+  flex-direction: column;
+}
+#notifications #header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+#notifications #header span {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 14px;
+  gap: 16px;
+}
+#notifications #content {
+  height: 50px;
+  background: var(--hover, grey);
+  font-size: 13px;
+  color: var(--fontMid, black);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+/* -------------- PAGE LAYOUT STYLE ---------------- */
+#onboarding-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* -------------- SEARCH CONTAINER STYLE ---------------- */
+.search-div {
+  background-color: var(--200, grey);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+  height: 32px;
+  min-width: 100px;
+  max-width: 480px;
+  width: 480px;
+  border-radius: 8px;
+  border: 1px solid var(--100, grey);
+  padding: 8px;
+}
+.search-div:hover {
+  border-color: var(--s50, lightgrey);
+}
+
+/* -------------- SEARCH BAR STYLE ---------------- */
+#search-bar {
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--fontLight, white);
+  width: 100%;
+}
+#search-bar:focus {
+  outline: none;
+}
+
+/* -------------- NAV MENU STYLE ---------------- */
+#nav-menu,
+#nav-menu button:first-child,
+#nav-menu button:last-child {
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--fontLight, white);
+}
+#nav-menu button:last-child,
+button:first-child {
+  background-color: var(--200, grey);
+  height: 32px;
+  border-radius: 8px;
+}
+#nav-menu button:last-child {
+  width: 142px;
+  justify-content: space-between;
+  padding: 2px 2px 2px 8px;
+}
+#nav-menu button:first-child {
+  width: 32px;
+}
+#user-id {
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--avatarBg, green);
+  color: var(--fontDark, black);
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+}
+
+/* -------------- MAIN CONTENT STYLE ---------------- */
+#main-section {
+  padding: 88px 0px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 800px;
+  gap: 16px;
+  overflow-y: auto;
+}
+
+/* -------------- PLAN CARD STYLE ---------------- */
+#plan-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--fontLight, whitesmoke);
+  font-weight: 500px;
+  padding: 12px 8px 12px 16px;
+  background-color: var(--300, darkgrey);
+  align-items: center;
+  animation: backwards 1s;
+  animation-delay: 1s;
+}
+#plan-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 32px;
+  margin-right: 10px;
+}
+#plan-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--background, white);
+  color: var(--fontDark, black);
+  text-decoration: none;
+  width: 99px;
+  height: 28px;
+  border-radius: 6px;
+  border: 1px solid var(--s100);
+  font-size: 12px;
+  font-weight: 600;
+}
+#dismiss-button {
+  background: none;
+  border: none;
+  margin: 0px 6px;
+  cursor: pointer;
+}
+
+/* -------------- SETUP GUIDE STYLE ---------------- */
+#setup-guide {
+  width: 100%;
+  background: var(--white, white);
+  border-radius: 18px;
+  border: 1px solid var(--s50);
+  padding: 18px;
+  min-height: fit-content;
+}
+#setup-guide-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 19.6px;
+}
+#setup-guide-header button {
+  transition: transform 0.4s ease;
+}
+#setup-guide-header button:hover {
+  background: var(--grey, grey);
+  border-radius: 8px;
+  cursor: pointer;
+}
+#setup-guide-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 16px;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 18.2px;
+}
+#setup-guide-info span p {
+  font-size: 12px;
+  line-height: 15.6px;
+}
+#setup-guide-info span {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+#progress-container {
+  height: 5px;
+  width: 72px;
+  background-color: #ccc;
+  border-radius: 28px;
+  overflow: hidden;
+}
+#progress-bar {
+  height: 100%;
+  background-color: #000;
+  border-radius: 28px;
+  width: 0%;
+  transition: width 0.3s ease-in-out;
+}
+#setup-guide-steps {
+  list-style: none;
+  width: 100%;
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: all 0.3s ease-in-out;
+  min-height: 0;
+}
+[id^="step-checkbox-checked"] {
+  display: none;
+}
+#setup-guide-steps li {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+  min-height: fit-content;
+  background: var(--grey, grey);
+  padding: 8px;
+  transition: all 0.3s ease-in-out;
+  border-radius: 10px;
+}
+#setup-guide-steps li:hover {
+  background-color: var(--grey, grey) !important;
+}
+#setup-guide-steps li div:nth-child(2) {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-right: 72px;
+}
+#setup-guide-steps li div:nth-child(2) h3 {
+  font-size: 13px;
+  margin-top: 4px;
+  font-weight: 600;
+  color: var(--fontDark);
+}
+#setup-guide-steps li div:nth-child(2) summary {
+  margin-top: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--fontMid);
+}
+#setup-guide-steps li div:nth-child(2) a {
+  text-decoration: none;
+  width: fit-content;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--focused, blue);
+}
+#setup-guide-steps li div:nth-child(2) div {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+#setup-guide-steps li div:nth-child(2) div #first-button {
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 500;
+  width: 127px;
+  height: 28px;
+  cursor: pointer;
+  margin-top: 8px;
+  display: flex;
+  border-radius: 6px;
+  align-items: center;
+  justify-content: center;
+  background: var(--200, black);
+  color: var(--fontLight, blue);
+  border: 1.5px solid var(--s200);
+}
+#setup-guide-steps li div:nth-child(2) div #second-button {
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+  width: 127px;
+  height: 28px;
+  cursor: pointer;
+  margin-top: 8px;
+  display: flex;
+  border-radius: 6px;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  color: var(--fontDark, black);
+}
+#setup-guide-steps li div:nth-child(2) div #second-button:hover {
+  background: var(--s50, lightgrey);
+}
+#setup-guide-steps li div:last-child {
+  display: flex;
+}
+#step-image {
+  position: relative;
+}
+#step-image div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    #00000000 0%,
+    #00000000 0%,
+    #00000000 0%,
+    #00000000 80%,
+    var(--grey, grey) 85%,
+    var(--grey, grey) 100%
+  );
+}
+
+/* -------------- JAVASCRIPT STYLES -------------- */
+.hide {
+  display: none;
+}
+
+.show {
+  display: flex;
+}
+
+.rotate {
+  transform: rotate(180deg);
+}
+
+.full-height {
+  min-height: fit-content;
+}
+
+.fade-out {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 0.5s, opacity 0.5s linear;
+}
+
+.inactive-step {
+  background: #ffffff;
+  overflow: hidden;
+  height: 40px;
+}
+
+/* -------------- MEDIA QUERIES -------------- */
+@media only screen and (max-width: 767px) {
+  nav #mobile-logo {
+    display: block;
+  }
+
+  nav #desktop-logo {
+    display: none;
+  }
+
+  #plan-card {
+    border-radius: 0;
+    align-items: flex-start;
+  }
+
+  #plan-info {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  #setup-guide {
+    border-radius: 0;
+  }
+
+  #nav-menu button:last-child span:first-child {
+    display: none;
+  }
+
+  #nav-menu button:last-child {
+    width: 28px;
+    padding: 0;
+  }
+
+  #setup-guide-steps li div:last-child {
+    display: none;
+  }
+
+  #setup-guide-steps li div:nth-child(2) {
+    margin-right: 25px;
+  }
+}
