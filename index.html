@@ -10,7 +10,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-    <title>Shopify</title>
+    <title>Shopify Onboarding</title>
   </head>
   <body>
     <main>
@@ -94,14 +94,14 @@
                 aria-controls="menu"
                 aria-roledescription="Davii Collections, user avatar icon button"
               >
-                <span> Davii Collections </span>
+                <span id="shop-name"> Davii Collections </span>
                 <span id="user-id">DC</span>
               </button>
             </div>
           </nav>
           <!-- MODAL CONTAINER -->
           <div id="profile-modal-container">
-            <!-- NOTIFICATIONS MODAL -->
+            <!-- USER PROFILE MODAL -->
             <ul role="menu" id="profile" class="hide">
               <li role="presentation">
                 <a
@@ -111,9 +111,9 @@
                 >
                   <div>
                     <div>
-                      <span>DC</span>
+                      <span id="modal-user-id">DC</span>
                     </div>
-                    <p>Davii Collections</p>
+                    <p id="modal-shop-name">Davii Collections</p>
                   </div>
                   <svg
                     width="12"
@@ -232,7 +232,7 @@
           </div>
           <!-- MODAL CONTAINER -->
           <div id="notifications-modal-container">
-            <!-- USER PROFILE MODAL -->
+            <!-- NOTIFICATIONS MODAL -->
             <div
               role="notifications-container"
               aria-label="notifications-container"
@@ -305,7 +305,7 @@
               >
             </div>
             <!-- DISMISS AD BUTTON -->
-            <button id="dismiss-button">
+            <button aria-live="assertive" id="dismiss-button">
               <svg
                 width="20"
                 height="20"
@@ -313,6 +313,9 @@
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
+                <title aria-live="assertive">
+                  This button dismisses this ad
+                </title>
                 <path
                   d="M14.4697 15.0303C14.7626 15.3232 15.2374 15.3232 15.5303 15.0303C15.8232 14.7374 15.8232 14.2626 15.5303 13.9697L11.5607 10L15.5303 6.03033C15.8232 5.73744 15.8232 5.26256 15.5303 4.96967C15.2374 4.67678 14.7626 4.67678 14.4697 4.96967L10.5 8.93934L6.53033 4.96967C6.23744 4.67678 5.76256 4.67678 5.46967 4.96967C5.17678 5.26256 5.17678 5.73744 5.46967 6.03033L9.43934 10L5.46967 13.9697C5.17678 14.2626 5.17678 14.7374 5.46967 15.0303C5.76256 15.3232 6.23744 15.3232 6.53033 15.0303L10.5 11.0607L14.4697 15.0303Z"
                   fill="#fff"
@@ -335,6 +338,7 @@
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
+                  <title>This button expands the setup guide panel</title>
                   <path
                     fill-rule="evenodd"
                     clip-rule="evenodd"

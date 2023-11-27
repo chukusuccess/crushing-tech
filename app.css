@@ -39,6 +39,7 @@
 /* ----------- ACCESSIBILITY HIGHLIGHT --------------- */
 :focus {
   outline: 2px solid var(--focused, blue);
+  outline-offset: 1px;
 }
 
 /* ----------------- GLOBAL STYLES ------------------ */
@@ -360,6 +361,10 @@ button:first-child {
   border: none;
   margin: 0px 6px;
   cursor: pointer;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* -------------- SETUP GUIDE STYLE ---------------- */
@@ -381,6 +386,7 @@ button:first-child {
   line-height: 19.6px;
 }
 #setup-guide-header button {
+  border-radius: 6px;
   transition: transform 0.4s ease;
 }
 #setup-guide-header button:hover {
@@ -428,12 +434,20 @@ button:first-child {
   margin-top: 16px;
   display: flex;
   flex-direction: column;
+  transition: min-height 0.3s ease-in-out;
   gap: 16px;
-  transition: all 0.3s ease-in-out;
-  min-height: 0;
 }
 [id^="step-checkbox-checked"] {
   display: none;
+  border-radius: 8px;
+}
+[id^="step-checkbox"] {
+  border-radius: 8px;
+}
+[id^="step-checkbox"]:hover circle,
+[id^="step-checkbox"]:focus circle {
+  stroke-dasharray: 0 0;
+  border-radius: 8px;
 }
 #setup-guide-steps li {
   display: flex;
@@ -441,10 +455,9 @@ button:first-child {
   align-items: flex-start;
   gap: 8px;
   width: 100%;
-  min-height: fit-content;
   background: var(--grey, grey);
   padding: 8px;
-  transition: all 0.3s ease-in-out;
+  transition: min-height 0.3s ease-in-out;
   border-radius: 10px;
 }
 #setup-guide-steps li:hover {

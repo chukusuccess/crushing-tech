@@ -10,11 +10,25 @@ const stepCheckbox = document.getElementById("step-checkbox");
 const stepInformation = document.getElementById("step-information");
 const stepImage = document.getElementById("step-image");
 const adDismissButton = document.getElementById("dismiss-button");
+const mainSection = document.getElementById("main-section");
 const ad = document.getElementById("plan-card");
 const notificationsButton = document.getElementById("notifications-button");
 const profileButton = document.getElementById("profile-button");
 const profile = document.getElementById("profile");
 const notifications = document.getElementById("notifications");
+const shopName = document.getElementById("shop-name");
+const modalShopName = document.getElementById("modal-shop-name");
+const userId = document.getElementById("user-id");
+const modalUserId = document.getElementById("modal-user-id");
+
+// ------------ LOGGED-IN USER (DUMMY) ------------ //
+let user = {
+  fullName: "David Michael",
+  email: "davidmichael@gmail.com",
+  shopName: "Davii Collections",
+  hasNotifications: false,
+  authenticated: true,
+};
 
 // ------------ STEPS DATA ------------ //
 let stepsData = [
@@ -98,10 +112,35 @@ let stepsData = [
   },
 ];
 
+// ------------ CREATE USER PROFILE ------------ //
+const createUserProfile = async (user) => {
+  try {
+    user.userID = await user.shopName
+      .toLowerCase()
+      .split(" ")
+      .map((name) => name[0])
+      .join("")
+      .toUpperCase();
+    userId.innerHTML = user.userID;
+    modalUserId.innerHTML = user.userID;
+    shopName.innerHTML = user.shopName;
+    modalShopName.innerHTML = user.shopName;
+  } catch (error) {
+    console.log(error);
+    alert("Oops! failed to login dummy user \n Please refresh page.");
+  } finally {
+    return user;
+  }
+};
+window.addEventListener("load", function () {
+  createUserProfile(user);
+});
+
 // ------------ DISMISS AD ------------ //
 adDismissButton.addEventListener("click", () => {
   try {
     ad.classList.add("fade-out");
+    mainSection.style.cssText = "padding: 0px 0px;";
   } catch (error) {
     console.log(error);
     alert("Oops!, cannot dismiss ad");
@@ -115,9 +154,12 @@ toggleAccordion.addEventListener("click", () => {
       allStepsContainer.insertAdjacentHTML(
         "beforeend",
         `
-              <li tabindex="0" id="${
-                item.elementId
-              }" onclick="handleStepGuides(this.id)"
+              <li aria-description="Step guide ${item.stepNumber}: ${
+          item.stepTitle
+        }" tabindex="0" id="${
+          item.elementId
+        }" onclick="handleStepGuides(this.id, event)"
+        onkeydown="handleStepGuides(this.id, event)"
               style="${
                 index > 0
                   ? "background: #ffffff; overflow: hidden; height: 40px; cursor: pointer;"
@@ -143,6 +185,7 @@ toggleAccordion.addEventListener("click", () => {
                       viewBox="0 0 32 32"
                       fill="none"
                       >
+                      <title>Checkbox for ${item.stepTitle}</title>
                           <circle
                           cx="16"
                           cy="16"
@@ -173,6 +216,9 @@ toggleAccordion.addEventListener("click", () => {
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
                     >
+                    <title>You have marked this checkbox for ${
+                      item.stepTitle
+                    }</title>
                       <circle cx="12" cy="12" r="10" fill="#303030"></circle>
                       <path
                         d="M17.2738 8.52629C17.6643 8.91682 17.6643 9.54998 17.2738 9.94051L11.4405 15.7738C11.05 16.1644 10.4168 16.1644 10.0263 15.7738L7.3596 13.1072C6.96908 12.7166 6.96908 12.0835 7.3596 11.693C7.75013 11.3024 8.38329 11.3024 8.77382 11.693L10.7334 13.6525L15.8596 8.52629C16.2501 8.13577 16.8833 8.13577 17.2738 8.52629Z"
@@ -182,22 +228,28 @@ toggleAccordion.addEventListener("click", () => {
                   </div>
                   <div id="step-information">
                       <h3>${item.stepTitle}</h3>
-                      <summary aria-hidden="true">
+                      <summary aria-hidden="true" tabindex="-1" id="summary${
+                        item.stepNumber
+                      }" >
                       ${item.stepDescription}
                       </summary>
-                      <a aria-hidden="true" tabindex="-1"
+                      <a aria-hidden="true" tabindex="-1" id="link${
+                        item.stepNumber
+                      }" 
                       href=${item.learnMore}
                       target="_blank"
                       >
                       Learn more
                       </a>
-                      <div aria-hidden="true">
-                          <button aria-hidden="true" tabindex="-1" id="first-button">${
+                      <div id="btn-div${
+                        item.stepNumber
+                      }" aria-hidden="true" tabindex="-1" >
+                          <button aria-hidden="true" tabindex="-1"  id="first-button">${
                             item.actionButton
                           }</button>
                           ${
                             item.nextAction
-                              ? `<button aria-hidden="true" tabindex="-1" id="second-button">${item.nextAction}</button>`
+                              ? `<button aria-hidden="true" tabindex="-1"  id="second-button">${item.nextAction}</button>`
                               : ""
                           }
                       </div>
@@ -230,24 +282,57 @@ toggleAccordion.addEventListener("click", () => {
   return;
 });
 
+// ------------ CONDITIONALLY ALLOW ACCESSIBILITY ------------ //
+const isStepAccessible = (elementId) => {
+  const element = document.getElementById(elementId);
+
+  const computedStyle = window.getComputedStyle(element);
+
+  const isBackgroundWhite = computedStyle.backgroundColor === "#ffffff";
+  const isOverflowHidden = computedStyle.overflow === "hidden";
+  const isHeight40px = computedStyle.height === "40px";
+  const isCursorPointer = computedStyle.cursor === "pointer";
+
+  if (
+    isBackgroundWhite &&
+    isOverflowHidden &&
+    isHeight40px &&
+    isCursorPointer
+  ) {
+    element.tabIndex === -1;
+    element.ariaHidden === true;
+  } else {
+    element.tabIndex === 0;
+    element.ariaHidden === false;
+  }
+  return elementId;
+};
+
 // ------------ TOGGLE STEP-GUIDE STEPS ------------ //
-const handleStepGuides = (stepId) => {
-  try {
-    stepsData.map((item) => {
-      document.getElementById(`img${item.stepNumber}`).style.cssText =
-        "display: none;";
-      document.getElementById(`step${item.stepNumber}`).style.cssText =
-        "background: #ffffff; overflow: hidden; height: 40px; cursor: pointer;";
-    });
-    document.getElementById(stepId).style.cssText =
-      "display: flex; background: #f3f3f3; overflow: visible; min-height: fit-content; cursor: pointer;";
-    document.getElementById(`${stepId.replace("step", "img")}`).style.cssText =
-      "display: flex;";
-  } catch (error) {
-    console.log(error);
-    alert(
-      "Oops!, There was a problem navigating step guides. \n Please refresh page."
-    );
+const handleStepGuides = (stepId, event) => {
+  if (
+    event.type === "click" ||
+    (event.type === "keydown" && event.key === "Enter") ||
+    (event.type === "keydown" && event.key === " ")
+  ) {
+    try {
+      stepsData.map((item) => {
+        document.getElementById(`img${item.stepNumber}`).style.cssText =
+          "display: none;";
+        document.getElementById(`step${item.stepNumber}`).style.cssText =
+          "background: #ffffff; overflow: hidden; height: 40px; cursor: pointer;";
+      });
+      document.getElementById(stepId).style.cssText =
+        "display: flex; background: #f3f3f3; overflow: visible; min-height: fit-content; cursor: pointer;";
+      document.getElementById(
+        `${stepId.replace("step", "img")}`
+      ).style.cssText = "display: flex;";
+    } catch (error) {
+      console.log(error);
+      alert(
+        "Oops!, There was a problem navigating step guides. \n Please refresh page."
+      );
+    }
   }
 };
 
@@ -358,24 +443,24 @@ const handleCompleted = (event, _elementId, stepNumber, _completed) => {
   }
 };
 
-const reverseCompleted = (event, _elementId, stepNumber, _completed) => {
+const reverseCompleted = (event, elementId, stepNumber, _completed) => {
   event.stopPropagation();
   if (
     event.type === "click" ||
     (event.type === "keydown" && event.key === "Enter") ||
     (event.type === "keydown" && event.key === " ")
   ) {
+    document.getElementById(`step-checkbox${stepNumber}`).style.cssText =
+      "display: block;";
     document.getElementById(
       `step-checkbox-checked${stepNumber}`
     ).style.cssText = "display: none;";
-    document.getElementById(`step-checkbox${stepNumber}`).style.cssText =
-      "display: block;";
     stepsData.forEach((item) => {
       stepNumber === item.stepNumber ? (item.completed = false) : null;
       document.getElementById(`img${item.stepNumber}`).style.cssText =
-        "display: flex;";
+        "display: none;";
       document.getElementById(item.elementId).style.cssText =
-        "display: flex; background: #f3f3f3; overflow: visible; min-height: fit-content; cursor: pointer;";
+        "background: #ffffff; overflow: hidden; height: 40px; cursor: pointer;";
     });
     try {
       for (let count = 0; count < stepsData.length; count++) {
@@ -383,10 +468,11 @@ const reverseCompleted = (event, _elementId, stepNumber, _completed) => {
           document.getElementById(
             `${stepsData[count].elementId}`
           ).style.cssText =
-            "background: #ffffff; overflow: hidden; height: 40px; cursor: pointer;";
+            "display: flex; background: #f3f3f3; overflow: visible; min-height: fit-content; cursor: pointer;";
           document.getElementById(
             `img${stepsData[count].stepNumber}`
           ).style.cssText = "display: none;";
+          break;
         }
       }
     } catch (error) {
@@ -398,4 +484,3 @@ const reverseCompleted = (event, _elementId, stepNumber, _completed) => {
 };
 
 // ------------ RETRIEVE USER CHECKED STEPS TO BE SENT TO BACKEND ------------ //
-// TODO:
