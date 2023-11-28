@@ -140,7 +140,7 @@ window.addEventListener("load", function () {
 adDismissButton.addEventListener("click", () => {
   try {
     ad.classList.add("fade-out");
-    mainSection.style.cssText = "padding: 0px 0px;";
+    mainSection.style.cssText = "padding: 0px 0px; transition: all 1.5s ease";
   } catch (error) {
     console.log(error);
     alert("Oops!, cannot dismiss ad");
@@ -344,6 +344,13 @@ profileButton.addEventListener("click", (event) => {
   notifications.classList.add("hide");
   profile.classList.toggle("hide");
 });
+profileButton.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && !profile.classList.contains("hide")) {
+    event.stopPropagation();
+    notifications.classList.add("hide");
+    profile.classList.toggle("hide");
+  }
+});
 
 // ------------ CHECK IF CLICK OCCURED OUTSIDE PROFILE MODAL ------------ //
 const isClickOutsideProfileModal = (event) => {
@@ -362,6 +369,13 @@ notificationsButton.addEventListener("click", (event) => {
   event.stopPropagation();
   profile.classList.add("hide");
   notifications.classList.toggle("hide");
+});
+notificationsButton.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && !notifications.classList.contains("hide")) {
+    event.stopPropagation();
+    profile.classList.add("hide");
+    notifications.classList.toggle("hide");
+  }
 });
 
 // ------------ STOP NOTIFICATIONS CLICK PROPAGATION ------------ //
