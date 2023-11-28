@@ -71,8 +71,11 @@
             </div>
             <div id="nav-menu">
               <button
+                title="display user notifications"
+                aria-haspopup="true"
                 id="notifications-button"
-                aria-roledescription="notifications icon button"
+                aria-expanded="false"
+                aria-roledescription="Davii Collections, user notifications icon button"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -91,6 +94,7 @@
               <button
                 id="profile-button"
                 aria-haspopup="true"
+                aria-expanded="false"
                 aria-controls="menu"
                 aria-roledescription="Davii Collections, user avatar icon button"
               >
@@ -356,6 +360,7 @@
                 <p id="progress-number">0 / 5 completed</p>
                 <div id="progress-container">
                   <div
+                    title="Step guide completion progress bar"
                     role="progressbar"
                     aria-valuemin="0"
                     aria-valuenow="0"
@@ -365,7 +370,11 @@
                 </div>
               </span>
             </div>
-            <ul id="setup-guide-steps" class="hide">
+            <ul
+              title="Section containing list of step guides"
+              id="setup-guide-steps"
+              class="hide"
+            >
               <!-- JAVASCRIPT GENERATES LIST OF STEP-GUIDES WHEN NEEDED -->
             </ul>
           </div>

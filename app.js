@@ -154,7 +154,7 @@ toggleAccordion.addEventListener("click", () => {
       allStepsContainer.insertAdjacentHTML(
         "beforeend",
         `
-              <li aria-description="Step guide ${item.stepNumber}: ${
+              <li title="Step guide ${item.stepNumber}: ${
           item.stepTitle
         }" tabindex="0" id="${
           item.elementId
@@ -233,7 +233,7 @@ toggleAccordion.addEventListener("click", () => {
                       }" >
                       ${item.stepDescription}
                       </summary>
-                      <a aria-hidden="true" tabindex="-1" id="link${
+                      <a title="link to shopify" aria-hidden="true" tabindex="-1" id="link${
                         item.stepNumber
                       }" 
                       href=${item.learnMore}
@@ -244,12 +244,14 @@ toggleAccordion.addEventListener("click", () => {
                       <div id="btn-div${
                         item.stepNumber
                       }" aria-hidden="true" tabindex="-1" >
-                          <button aria-hidden="true" tabindex="-1"  id="first-button">${
+                          <button title="${
                             item.actionButton
-                          }</button>
+                          }" aria-hidden="true" tabindex="-1"  id="first-button">${
+          item.actionButton
+        }</button>
                           ${
                             item.nextAction
-                              ? `<button aria-hidden="true" tabindex="-1"  id="second-button">${item.nextAction}</button>`
+                              ? `<button title="${item.nextAction}" aria-hidden="true" tabindex="-1"  id="second-button">${item.nextAction}</button>`
                               : ""
                           }
                       </div>
